@@ -1,13 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <!-- WebView to display web content -->
     <WebView
         android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
 
     <!-- ProgressBar for website loading -->
     <ProgressBar
@@ -16,6 +17,29 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone"/> <!-- Initially hidden -->
+
+    <LinearLayout
+        android:id="@+id/no_network"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:padding="100dp"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:src="@drawable/ic_no_network"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="আপনার ডিভাইসে ইন্টারনেট নেই দয়া করে ইন্টারনেট এর সাথে যুক্ত হয়ে হোম বাটনে ক্লিক এর মাধ্যমে রিফ্রেস করুন ।"/>
+
+    </LinearLayout>
 
     <!-- Bottom navigation layout -->
     <LinearLayout

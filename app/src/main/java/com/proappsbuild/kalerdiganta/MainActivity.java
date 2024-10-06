@@ -2,8 +2,11 @@ package com.proappsbuild.kalerdiganta;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private WebView webView;
     private Animation buttonClickAnimation;
     private ProgressBar progressBar;
+    LinearLayout no_network;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +66,17 @@ public class MainActivity extends AppCompatActivity {
         ImageButton buttonNews = findViewById(R.id.button_news);
         ImageButton buttonSettings = findViewById(R.id.button_settings);
 
+        no_network = findViewById(R.id.no_network);
+
         progressBar = findViewById(R.id.progress_bar);
 
         // Load the animation
         buttonClickAnimation = AnimationUtils.loadAnimation(this, R.anim.button_click_animation);
+
+
+
+
+
 
 
 
@@ -74,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         webSettings.setUseWideViewPort(true);
         webSettings.setDomStorageEnabled(true);
-        webSettings.setLoadsImagesAutomatically(true);
 
 
         // Set WebViewClient to load pages inside the WebView
@@ -85,6 +96,14 @@ public class MainActivity extends AppCompatActivity {
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 // Show the progress bar when page starts loading
                 progressBar.setVisibility(View.VISIBLE);
+                if (!isNetworkAvailable()) {
+                    no_network.setVisibility(View.VISIBLE);
+                    webView.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    no_network.setVisibility(View.GONE);
+                    webView.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -108,38 +127,38 @@ public class MainActivity extends AppCompatActivity {
 
             // Show a dialog with options
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle(" বিভাগ ভিত্তিক খবর ");
+            builder.setTitle(" বিষয় ভিত্তিক খবর ");
 
             // Options for Dhaka and Chattogram
-            String[] options = {"ঢাকা বিভাগ", "চট্টগ্রাম বিভাগ", "রাজশাহী বিভাগ", "খুলনা বিভাগ", "বরিশাল বিভাগ", "ময়মনসিংহ বিভাগ", "সিলেট বিভাগ", "রংপুর বিভাগ"};
+//            String[] options = {"ঢাকা বিভাগ", "চট্টগ্রাম বিভাগ", "রাজশাহী বিভাগ", "খুলনা বিভাগ", "বরিশাল বিভাগ", "ময়মনসিংহ বিভাগ", "সিলেট বিভাগ", "রংপুর বিভাগ"};
+            String[] options = {"জাতীয়", "রাজনীতি", "অর্থনীতি", "আন্তর্জাতিক", "বিনোদন", "ইসলামী বিশ্ব", "ইসলামিক", "বিশেষ প্রতিবেদন"};
 
             builder.setItems(options, (dialog, which) -> {
                 // Perform actions based on the selected option
                 switch (which) {
-                    case 0: // Dhaka selected
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%a2%e0%a6%be%e0%a6%95%e0%a6%be");
+                    case 0:
+                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%9c%e0%a6%be%e0%a6%a4%e0%a7%80%e0%a6%af%e0%a6%bc");
                         break;
-                    case 1: // Chattogram selected
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%9a%e0%a6%9f%e0%a7%8d%e0%a6%9f%e0%a6%97%e0%a7%8d%e0%a6%b0%e0%a6%be%e0%a6%ae");
+                    case 1:
+                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%b0%e0%a6%be%e0%a6%9c%e0%a6%a8%e0%a7%80%e0%a6%a4%e0%a6%bf");
                         break;
                     case 2: // Dhaka selected
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%b0%e0%a6%be%e0%a6%9c%e0%a6%b6%e0%a6%be%e0%a6%b9%e0%a7%80");
+                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%85%e0%a6%b0%e0%a7%8d%e0%a6%a5%e0%a6%a8%e0%a7%80%e0%a6%a4%e0%a6%bf");
                         break;
-                    case 3: // Chattogram selected
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%96%e0%a7%81%e0%a6%b2%e0%a6%a8%e0%a6%be");
+                    case 3:
+                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%86%e0%a6%a8%e0%a7%8d%e0%a6%a4%e0%a6%b0%e0%a7%8d%e0%a6%9c%e0%a6%be%e0%a6%a4%e0%a6%bf%e0%a6%95");
                         break;
-                    case 4: // Dhaka selected
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%ac%e0%a6%b0%e0%a6%bf%e0%a6%b6%e0%a6%be%e0%a6%b2");
+                    case 4:
+                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%ac%e0%a6%bf%e0%a6%a8%e0%a7%8b%e0%a6%a6%e0%a6%a8");
                         break;
-                    case 5: // Chattogram selected
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%ae%e0%a6%af%e0%a6%bc%e0%a6%ae%e0%a6%a8%e0%a6%b8%e0%a6%bf%e0%a6%82%e0%a6%b9");
+                    case 5:
+                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%87%e0%a6%b8%e0%a6%b2%e0%a6%be%e0%a6%ae%e0%a7%80-%e0%a6%ac%e0%a6%bf%e0%a6%b6%e0%a7%8d%e0%a6%ac");
                         break;
-                    case 6: // Dhaka selected
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%b8%e0%a6%bf%e0%a6%b2%e0%a7%87%e0%a6%9f");
+                    case 6:
+                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%87%e0%a6%b8%e0%a6%b2%e0%a6%be%e0%a6%ae%e0%a6%bf%e0%a6%95");
                         break;
-                    case 7: // Chattogram selected
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%b0%e0%a6%82%e0%a6%aa%e0%a7%81%e0%a6%b0");
-                        break;
+                    case 7:
+                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%b0%e0%a6%82%e0%a6%aa%e0%a7%81%e0%a6%b0https://kalerdiganta.com/category/%e0%a6%ac%e0%a6%bf%e0%a6%b6%e0%a7%87%e0%a6%b7-%e0%a6%aa%e0%a7%8d%e0%a6%b0%e0%a6%a4%e0%a6%bf%e0%a6%ac%e0%a7%87%e0%a6%a6%e0%a6%a8");
                 }
             });
 
@@ -210,6 +229,13 @@ public class MainActivity extends AppCompatActivity {
                 // Handle the case where permission is denied
             }
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
     @Override
     public void onBackPressed() {
