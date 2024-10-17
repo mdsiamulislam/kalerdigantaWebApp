@@ -2,8 +2,11 @@ package com.proappsbuild.kalerdiganta;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -32,28 +35,28 @@ public class NewsFetchWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        String latestNewsTitle = fetchLatestNewsFromFeed();
+        NewsItem latestNews = fetchLatestNewsFromFeed();
 
-        if (latestNewsTitle != null) {
+        if (latestNews != null) {
             SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
             String lastStoredTitle = preferences.getString(LAST_NEWS_TITLE, null);
 
             // Compare the last stored news title with the fetched one
-            if (lastStoredTitle == null || !latestNewsTitle.equals(lastStoredTitle)) {
+            if (lastStoredTitle == null || !latestNews.title.equals(lastStoredTitle)) {
                 // Update stored news title
                 SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(LAST_NEWS_TITLE, latestNewsTitle);
+                editor.putString(LAST_NEWS_TITLE, latestNews.title);
                 editor.apply();
 
                 // Notify the user of the new news
-                showNotification(latestNewsTitle);
+                showNotification(latestNews.title, latestNews.link);
             }
         }
         return Result.success();
     }
 
-    private String fetchLatestNewsFromFeed() {
-        String latestNewsTitle = null;
+    private NewsItem fetchLatestNewsFromFeed() {
+        NewsItem latestNews = null;
         try {
             URL url = new URL(RSS_FEED_URL);
             InputStream inputStream = url.openConnection().getInputStream();
@@ -66,15 +69,17 @@ public class NewsFetchWorker extends Worker {
             NodeList items = root.getElementsByTagName("item");
             if (items.getLength() > 0) {
                 Element item = (Element) items.item(0); // Get the first news item
-                latestNewsTitle = item.getElementsByTagName("title").item(0).getTextContent();
+                String title = item.getElementsByTagName("title").item(0).getTextContent();
+                String link = item.getElementsByTagName("link").item(0).getTextContent();
+                latestNews = new NewsItem(title, link);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return latestNewsTitle;
+        return latestNews;
     }
 
-    private void showNotification(String newsTitle) {
+    private void showNotification(String newsTitle, String newsLink) {
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
         String channelId = "news_channel";
 
@@ -83,12 +88,33 @@ public class NewsFetchWorker extends Worker {
             notificationManager.createNotificationChannel(channel);
         }
 
+        // Create an intent to open WebViewActivity
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("newsLink", newsLink); // Pass the news link to the activity
+
+        // Wrap the intent in a PendingIntent
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), channelId)
                 .setSmallIcon(R.drawable.logo) // Replace with your notification icon
                 .setContentTitle("New News")
                 .setContentText(newsTitle)
+                .setContentIntent(pendingIntent) // Attach the pending intent
+                .setAutoCancel(true) // Close the notification after clicking
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         notificationManager.notify(1, builder.build());
+    }
+
+
+    // Helper class to store news title and link
+    private static class NewsItem {
+        String title;
+        String link;
+
+        NewsItem(String title, String link) {
+            this.title = title;
+            this.link = link;
+        }
     }
 }

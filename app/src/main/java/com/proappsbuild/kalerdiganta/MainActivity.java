@@ -113,8 +113,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        String url = getIntent().getStringExtra("newsLink");
         // Load the desired URL
-        webView.loadUrl("https://kalerdiganta.com/");
+
+        if (url != null) {
+            webView.loadUrl(url);
+        }else {
+            webView.loadUrl("https://kalerdiganta.com");
+        }
 
 
 
@@ -137,28 +143,28 @@ public class MainActivity extends AppCompatActivity {
                 // Perform actions based on the selected option
                 switch (which) {
                     case 0:
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%9c%e0%a6%be%e0%a6%a4%e0%a7%80%e0%a6%af%e0%a6%bc");
+                        webView.loadUrl("https://kalerdiganta.com/news/category/%e0%a6%9c%e0%a6%be%e0%a6%a4%e0%a7%80%e0%a6%af%e0%a6%bc");
                         break;
                     case 1:
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%b0%e0%a6%be%e0%a6%9c%e0%a6%a8%e0%a7%80%e0%a6%a4%e0%a6%bf");
+                        webView.loadUrl("https://kalerdiganta.com/news/category/%e0%a6%b0%e0%a6%be%e0%a6%9c%e0%a6%a8%e0%a7%80%e0%a6%a4%e0%a6%bf");
                         break;
                     case 2: // Dhaka selected
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%85%e0%a6%b0%e0%a7%8d%e0%a6%a5%e0%a6%a8%e0%a7%80%e0%a6%a4%e0%a6%bf");
+                        webView.loadUrl("https://kalerdiganta.com/news/category/%e0%a6%85%e0%a6%b0%e0%a7%8d%e0%a6%a5%e0%a6%a8%e0%a7%80%e0%a6%a4%e0%a6%bf");
                         break;
                     case 3:
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%86%e0%a6%a8%e0%a7%8d%e0%a6%a4%e0%a6%b0%e0%a7%8d%e0%a6%9c%e0%a6%be%e0%a6%a4%e0%a6%bf%e0%a6%95");
+                        webView.loadUrl("https://kalerdiganta.com/news/category/%e0%a6%86%e0%a6%a8%e0%a7%8d%e0%a6%a4%e0%a6%b0%e0%a7%8d%e0%a6%9c%e0%a6%be%e0%a6%a4%e0%a6%bf%e0%a6%95");
                         break;
                     case 4:
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%ac%e0%a6%bf%e0%a6%a8%e0%a7%8b%e0%a6%a6%e0%a6%a8");
+                        webView.loadUrl("https://kalerdiganta.com/news/category/%e0%a6%ac%e0%a6%bf%e0%a6%a8%e0%a7%8b%e0%a6%a6%e0%a6%a8");
                         break;
                     case 5:
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%87%e0%a6%b8%e0%a6%b2%e0%a6%be%e0%a6%ae%e0%a7%80-%e0%a6%ac%e0%a6%bf%e0%a6%b6%e0%a7%8d%e0%a6%ac");
+                        webView.loadUrl("https://kalerdiganta.com/news/category/%e0%a6%87%e0%a6%b8%e0%a6%b2%e0%a6%be%e0%a6%ae%e0%a7%80-%e0%a6%ac%e0%a6%bf%e0%a6%b6%e0%a7%8d%e0%a6%ac");
                         break;
                     case 6:
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%87%e0%a6%b8%e0%a6%b2%e0%a6%be%e0%a6%ae%e0%a6%bf%e0%a6%95");
+                        webView.loadUrl("https://kalerdiganta.com/news/category/%e0%a6%87%e0%a6%b8%e0%a6%b2%e0%a6%be%e0%a6%ae%e0%a6%bf%e0%a6%95");
                         break;
                     case 7:
-                        webView.loadUrl("https://kalerdiganta.com/category/%e0%a6%b0%e0%a6%82%e0%a6%aa%e0%a7%81%e0%a6%b0https://kalerdiganta.com/category/%e0%a6%ac%e0%a6%bf%e0%a6%b6%e0%a7%87%e0%a6%b7-%e0%a6%aa%e0%a7%8d%e0%a6%b0%e0%a6%a4%e0%a6%bf%e0%a6%ac%e0%a7%87%e0%a6%a6%e0%a6%a8");
+                        webView.loadUrl("https://kalerdiganta.com/news/category/%e0%a6%ac%e0%a6%bf%e0%a6%b6%e0%a7%87%e0%a6%b7-%e0%a6%aa%e0%a7%8d%e0%a6%b0%e0%a6%a4%e0%a6%bf%e0%a6%ac%e0%a7%87%e0%a6%a6%e0%a6%a8");
                 }
             });
 
