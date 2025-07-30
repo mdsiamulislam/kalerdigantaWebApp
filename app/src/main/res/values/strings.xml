@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kaler Diganta</string>
+    <string name="site_description">Kaler Diganta is a popular Bengali newspaper.</string>
+    <string name="site_url">https://www.kalerdiganta.com</string>
 </resources>
