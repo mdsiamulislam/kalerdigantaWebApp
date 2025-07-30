@@ -1,44 +1,66 @@
-# Kalerdiganta WebView App
+# Kalerdiganta Android App
 
-## Overview
-The Kalerdiganta WebView App is an Android application that provides users with easy access to the latest news from Kalerdiganta. The app utilizes a `WebView` to load news feeds and offers a user-friendly interface with a bottom navigation bar for easy navigation.
+<div align="center">
+  <img src="https://github.com/mdsiamulislam/kalerdigantaWebApp/blob/main/app/src/main/res/drawable/cover.png" alt="Kalerdiganta Banner" width="80%">
+  
+  [![Android](https://img.shields.io/badge/Platform-Android-green.svg)](https://android.com)
+  [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
+  [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+  [![Version](https://img.shields.io/badge/Version-2.0-orange.svg)](https://github.com/yourusername/kalerdiganta-app/releases)
+  
+  <h3>📱 A modern Bengali news app with offline reading capabilities</h3>
+  
+  
+## 📦 Download
 
-## Features
-- Display news from [Kalerdiganta](https://kalerdiganta.com/)
-- Bottom navigation for easy access to different sections
-- Progress bar to indicate loading status
-- Back navigation functionality to go back in web history
-- User-friendly animations on button clicks
-- Alert dialog for settings indicating under development
+<a href="https://play.google.com/store/apps/details?id=com.proappsbuild.kalerdiganta">
+  <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="80">
+</a>
 
-## Prerequisites
-- Android Studio
-- Android SDK 34
-- Gradle
+</div>
 
-## Usage
+---
 
-- Launch the app to see the latest news.
-- Use the bottom navigation bar to switch between different sections.
-- Click on the news button to load specific news categories.
-- Use the back button to navigate through web pages.
-- Click on settings to see a message about under-development features.
+## ✨ Features
 
-## Screenshots
-*(You can add screenshots of your app here)*
+- 📰 **Latest Bengali News** - Real-time news from Kalerdiganta
+- 🔌 **Offline Reading** - Read previously visited articles without internet
+- 🗂️ **Category Wise News** - National, Politics, Economy, International & more
+- 🔄 **Smart Caching** - Automatic content caching for offline access
+- 🧹 **Auto Cleanup** - 7-day automatic cache cleanup to keep app lightweight
+- 📱 **Responsive Design** - Optimized for all screen sizes
+- 🌐 **WebView Integration** - Seamless web browsing experience
 
-## Technologies Used
-- Java
-- Android SDK
-- WebView
-- Material Design
+## 🔄 Changelog
+### Version 2.0
+- ✅ Added offline reading capability
+- ✅ Implemented smart caching system
+- ✅ Fixed offline navigation issues
+- ✅ Improved network reconnection handling
+- ✅ Added 7-day auto cache cleanup
 
+## 🤝 Contributing
 
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
+## 📞 Contact
 
-## Acknowledgments
-- [Kalerdiganta](https://kalerdiganta.com) for providing news feeds.
-- The Android community for continuous support and resources.
+**Developer:** Your Name  
+**Email:** soaib.softdev@gmail.com  
+**Website:** [kalerdiganta.com](https://kalerdiganta.com)
 
+## 📄 License
 
-Feel free to adjust any part of this template to suit your project's needs!
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+  <p>Made with ❤️ for Bengali news readers</p>
+  
+  ⭐ Star this repo if you found it helpful!
+</div>
